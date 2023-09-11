@@ -3,7 +3,7 @@ import { Form, Row, Col, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { newReduxAdd } from "../action/UsersAction";
 import { v4 as uuid } from "uuid";
-import { doc, setDoc } from "firebase/firestore"; 
+import { addDoc, collection } from "firebase/firestore";
 import {db} from "../firebase/Config"
 
 function AddUserForm(props) {
@@ -19,42 +19,30 @@ function AddUserForm(props) {
   const [checked, setChecked] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // dispatch(
-    //   newReduxAdd({
-    //     id: uuid(),
-    //     fullName,
-    //     idName,
-    //     companyAddress,
-    //     info,
-    //     city,
-    //     fileId,
-    //     zipCode,
-    //     checked,
-    //   })
-    // );
-    let newUser = {id: uuid(),
-      fullName,
-      idName,
-      companyAddress,
-      info,
-      city,
-      fileId,
-      zipCode,
-      checked,}
-      
-    console.log({
+    dispatch(
+      newReduxAdd({
+        id: uuid(),
+        fullName,
+        idName,
+        companyAddress,
+        info,
+        city,
+        fileId,
+        zipCode,
+        checked,
+      })
+    );
+    const docRef = await addDoc(collection(db, "users"), {
       id: uuid(),
-      fullName,
-      idName,
-      companyAddress,
-      info,
-      city,
-      fileId,
-      zipCode,
-      checked,
-    })
-    await setDoc(doc(db, "virtual-users", newUser.id),newUser);
-
+        fullName,
+        idName,
+        companyAddress,
+        info,
+        city,
+        fileId,
+        zipCode,
+        checked,
+    });
     setFullName("");
     setIdName("");
     setCompanyAddress("");

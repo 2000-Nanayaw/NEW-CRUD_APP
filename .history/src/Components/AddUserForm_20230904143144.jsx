@@ -41,7 +41,6 @@ function AddUserForm(props) {
       fileId,
       zipCode,
       checked,}
-      
     console.log({
       id: uuid(),
       fullName,
@@ -53,7 +52,11 @@ function AddUserForm(props) {
       zipCode,
       checked,
     })
-    await setDoc(doc(db, "virtual-users", newUser.id),newUser);
+    await setDoc(doc(db, "virtual-users", "uuid()"), {
+      name: "Los Angeles",
+      state: "CA",
+      country: "USA"
+    });
 
     setFullName("");
     setIdName("");

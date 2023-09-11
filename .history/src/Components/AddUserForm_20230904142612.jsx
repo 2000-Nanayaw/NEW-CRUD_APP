@@ -32,16 +32,6 @@ function AddUserForm(props) {
     //     checked,
     //   })
     // );
-    let newUser = {id: uuid(),
-      fullName,
-      idName,
-      companyAddress,
-      info,
-      city,
-      fileId,
-      zipCode,
-      checked,}
-      
     console.log({
       id: uuid(),
       fullName,
@@ -53,8 +43,17 @@ function AddUserForm(props) {
       zipCode,
       checked,
     })
-    await setDoc(doc(db, "virtual-users", newUser.id),newUser);
-
+    const docRef = await addDoc(collection(db, "users"), {
+      id: uuid(),
+        fullName,
+        idName,
+        companyAddress,
+        info,
+        city,
+        fileId,
+        zipCode,
+        checked,
+    });
     setFullName("");
     setIdName("");
     setCompanyAddress("");

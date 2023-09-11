@@ -1,26 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import SeeAllUsers from "./Components/SeeAllUsers";
-import { collection, query, onSnapshot } from "firebase/firestore";
 import AddUserForm from "./Components/AddUserForm";
-import {db} from "./firebase/Config"
 
 function App() {
-useEffect(()=>{
-const readData = async () =>{
-  const q = query(collection(db, "cities"), );
-  const unsubscribe = onSnapshot(q, (querySnapshot) => {
-    const cities = [];
-    querySnapshot.forEach((doc) => {
-        cities.push(doc.data().name);
-    });
-    console.log("Current cities in CA: ", cities.join(", "));
-  });
-}
-}, [])
-
-
   const [users, setUsers] = useState([]);
   const handleSubmit = (user) => {
     user.id = Math.random().toString();
